@@ -1,4 +1,8 @@
 #!/usb/bin/env python3
+# Code Originated from networkchuck on youtube : https://www.youtube.com/watch?v=UtMMjXOlRQc
+# To use for only personal security not for any criminal activity
+# I do not take charges for how you use the code
+
 
 import os
 from sys import exit
